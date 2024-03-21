@@ -5,7 +5,7 @@ words = ["python", "programación", "computadora", "código", "desarrollo",
 
 # Elegir una palabra al azar
 secret_word = random.choice(words)
-# Número máximo de intentos permitidos
+# Contador de fallos
 failures = 0
 # Lista para almacenar las letras adivinadas
 guessed_letters = []
@@ -26,13 +26,7 @@ match option:
             else:
                 letters.append("_")
     case 2:
-        counter = 0
-        for letter in secret_word:
-            if ((counter == 0) or (counter == (len(secret_word) -1))):
-                letters.append(letter)
-            else:
-                letters.append("_")
-            counter += 1
+        letters.append(secret_word[0] + ("_" * (len(secret_word) - 2)) + secret_word[len(secret_word)- 1])
     case 3:
         word_displayed = "_" * len(secret_word)
     case _:
@@ -56,6 +50,7 @@ while(failures < 3):
          guessed_letters.append(letter)
      # Verificar si la letra está en la palabra secreta, si estoy en la opcion 2 no incluye la pirmera ni la ultima letra de la cadena
      if(option == 2):
+        # Verifico si esta en la palabra sin contar la primera ni la ultima letra 
         if letter in secret_word[1:-1]:
             # Verifica que no sea caracter vacio
             if(letter != ""):
@@ -78,7 +73,8 @@ while(failures < 3):
      # Mostrar la palabra parcialmente adivinada
     
      letters = []
-     # Si estoy en ficultad media, mostrar la primera y ultima letra, ademas de las adivinadas
+     # Si estoy en dificultad media, mostrar la primera, ultima letra y las adivinadas
+    
      if(option == 2):
         counter = 0
         for letter in secret_word:
@@ -94,6 +90,7 @@ while(failures < 3):
             else:
                 letters.append("_")
      word_displayed = "".join(letters)
+    
      print(f"Palabra: {word_displayed}")
      # Verificar si se ha adivinado la palabra completa
      if word_displayed == secret_word:
@@ -102,3 +99,4 @@ while(failures < 3):
 else:
      print(f"¡Oh no! alcanzaste el limite de fallos")
      print(f"La palabra secreta era: {secret_word}")    
+     
